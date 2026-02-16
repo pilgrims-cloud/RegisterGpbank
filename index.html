@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Pilgrim Bank - Account Opening</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #1e3a8a;
+        }
+
+        .bank-name {
+            font-size: 48px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .owner-name {
+            font-size: 18px;
+            color: #1e3a8a;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b82f6;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "🏦";
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .upload-section {
+            border: 2px dashed #3b82f6;
+            padding: 20px;
+            border-radius: 10px;
+            background: #eff6ff;
+            margin-bottom: 20px;
+        }
+
+        .upload-section h4 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+
+        .upload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .upload-item {
+            text-align: center;
+        }
+
+        .upload-item label {
+            display: block;
+            padding: 10px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-item label:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .upload-item input[type="file"] {
+            display: none;
+        }
+
+        .signature-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            background: white;
+        }
+
+        .signature-pad {
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            cursor: crosshair;
+            background: #fafafa;
+            touch-action: none;
+        }
+
+        .signature-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: #64748b;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #047857 0%, #059669 100%);
+        }
+
+        .serial-number-container {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 3px solid #f59e0b;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+
+        .serial-number-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .serial-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1e3a8a;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border: 2px dashed #f59e0b;
+        }
+
+        .copy-btn {
+            background: #f59e0b;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .message-section {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .message-section h3 {
+            color: #0ea5e9;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .admin-info {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #22c55e;
+            display: block;
+        }
+
+        .status-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .bank-name {
+                font-size: 32px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .required::after {
+            content: " *";
+            color: #ef4444;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0;
+        }
+
+        .radio-group label:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .hidden-email {
+            display: none;
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="bank-name">✨ Global Pilgrim Bank ✨</h1>
+            <p class="owner-name">Owned by: Olawale Abdul-Ganiyu Adeshina</p>
+        </div>
+
+        <form id="accountForm">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">Personal Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required" for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="motherMaidenName">Mother's Maiden Name (when she was single)</label>
+                        <input type="text" id="motherMaidenName" name="motherMaidenName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required" for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="sex">Sex</label>
+                        <select id="sex" name="sex" required>
+                            <option value="">Select Sex</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="required" for="otherBank">Other Bank Name (if any)</label>
+                        <input type="text" id="otherBank" name="otherBank" placeholder="Enter bank name if you have one">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">Address Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="required" for="country">Country</label>
+                        <input type="text" id="country" name="country" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required" for="state">State of Residence</label>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required" for="address">Full Address</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+            </div>
+
+            <!-- Account Details Section -->
+            <div class="form-section">
+                <h2 class="section-title">Account Details</h2>
+                
+                <div class="form-group">
+                    <label class="required">Type of Account</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="accountType" value="business" required> Business Account</label>
+                        <label><input type="radio" name="accountType" value="personal"> Personal Account</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Transaction Type</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="transactionType" value="local" required> Local Transaction</label>
+                        <label><input type="radio" name="transactionType" value="international"> International Transaction</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Employment Status</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="employmentStatus" value="unemployed" required> Unemployed</label>
+                        <label><input type="radio" name="employmentStatus" value="employed"> Employed</label>
+                        <label><input type="radio" name="employmentStatus" value="business"> Business</label>
+                        <label><input type="radio" name="employmentStatus" value="political"> Political</label>
+                        <label><input type="radio" name="employmentStatus" value="trade"> Trade</label>
+                        <label><input type="radio" name="employmentStatus" value="nonprofit"> Non-Profit Organization</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Account Purpose</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="accountPurpose" value="investment" required> Investment</label>
+                        <label><input type="radio" name="accountPurpose" value="shares"> Shares</label>
+                        <label><input type="radio" name="accountPurpose" value="saving"> Saving</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required" for="initialDeposit">Initial Deposit Amount</label>
+                    <input type="number" id="initialDeposit" name="initialDeposit" min="0" step="0.01" required>
+                </div>
+            </div>
+
+            <!-- Document Upload Section -->
+            <div class="form-section">
+                <h2 class="section-title">Document Upload</h2>
+                <p style="margin-bottom: 20px; color: #64748b;">Please upload one of the following documents for verification:</p>
+                
+                <div class="upload-section">
+                    <h4>Select Document Type to Upload</h4>
+                    <div class="upload-grid">
+                        <div class="upload-item">
+                            <label for="passport">
+                                📄 Passport
+                            </label>
+                            <input type="file" id="passport" name="passport" accept="image/*,.pdf">
+                        </div>
+                        <div class="upload-item">
+                            <label for="driverLicence">
+                                🚗 Driver's Licence
+                            </label>
+                            <input type="file" id="driverLicence" name="driverLicence" accept="image/*,.pdf">
+                        </div>
+                        <div class="upload-item">
+                            <label for="voterCard">
+                                🗳️ Voter Card
+                            </label>
+                            <input type="file" id="voterCard" name="voterCard" accept="image/*,.pdf">
+                        </div>
+                        <div class="upload-item">
+                            <label for="nationalId">
+                                🆔 National ID
+                            </label>
+                            <input type="file" id="nationalId" name="nationalId" accept="image/*,.pdf">
+                        </div>
+                        <div class="upload-item">
+                            <label for="residentPermit">
+                                🏠 Resident Permit
+                            </label>
+                            <input type="file" id="residentPermit" name="residentPermit" accept="image/*,.pdf">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature Section -->
+            <div class="form-section">
+                <h2 class="section-title">Digital Signature</h2>
+                <p style="margin-bottom: 15px; color: #64748b;">Please sign below using your mouse or finger</p>
+                
+                <div class="signature-container">
+                    <canvas id="signaturePad" class="signature-pad" width="600" height="200"></canvas>
+                    <div class="signature-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="clearSignature()">Clear Signature</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary">Save & Generate Serial Number</button>
+            </div>
+        </form>
+
+        <!-- Serial Number Display -->
+        <div id="serialNumberContainer" class="serial-number-container">
+            <h3 style="color: #1e3a8a; font-size: 24px;">🎉 Registration Successful!</h3>
+            <p style="color: #64748b; margin-top: 10px;">Your account has been created successfully. Please copy your serial number below:</p>
+            <div id="serialNumber" class="serial-number"></div>
+            <button type="button" class="btn copy-btn" onclick="copySerialNumber()">📋 Copy Serial Number</button>
+            <p style="margin-top: 15px; color: #64748b; font-size: 14px;">Use this serial number to send a message to the administrator below.</p>
+        </div>
+
+        <div id="statusMessage" class="status-message"></div>
+
+        <!-- Message to Admin Section -->
+        <div class="message-section">
+            <h3>💬 Send Message to Administrator</h3>
+            
+            <div class="admin-info">
+                <p><strong>Note:</strong> Your message will be sent to the bank administrators for account acknowledgment.</p>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="required" for="messageEmail">Your Email Address</label>
+                    <input type="email" id="messageEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="required" for="messageName">Your Full Name</label>
+                    <input type="text" id="messageName" placeholder="Enter your full name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="required" for="messageSerial">Serial Number</label>
+                <input type="text" id="messageSerial" placeholder="Enter the serial number from your registration">
+            </div>
+
+            <div class="form-group">
+                <label class="required" for="messageContent">Your Message</label>
+                <textarea id="messageContent" rows="5" placeholder="Write your message here... You can write as much as you want."></textarea>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="button" class="btn btn-success" onclick="sendMessage()">📧 Send Message to Administrator</button>
+            </div>
+
+            <!-- Hidden Admin Emails -->
+            <div class="hidden-email">
+                <input type="hidden" id="adminEmail1" value="adeganglobal@gmail.com">
+                <input type="hidden" id="adminEmail2" value="pilgrimshares@gmail.com">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Signature Pad Functionality
+        const canvas = document.getElementById('signaturePad');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let hasSignature = false;
+
+        // Adjust canvas size for mobile
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            const newWidth = Math.min(600, container.offsetWidth - 40);
+            canvas.width = newWidth;
+            canvas.height = 200;
+            
+            // Set styles
+            ctx.strokeStyle = '#1e3a8a';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        // Initialize canvas
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Mouse events
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch events for mobile
+        canvas.addEventListener('touchstart', handleTouchStart);
+        canvas.addEventListener('touchmove', handleTouchMove);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getMousePos(canvas, e);
+            lastX = pos.x;
+            lastY = pos.y;
+            hasSignature = true;
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const pos = getMousePos(canvas, e);
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            
+            lastX = pos.x;
+            lastY = pos.y;
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasSignature = false;
+        }
+
+        // Form Submission and Serial Number Generation
+        let currentSerialNumber = '';
+        let formData = {};
+
+        document.getElementById('accountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if signature is provided
+            if (!hasSignature) {
+                showStatus('Please provide your signature before submitting.', 'error');
+                return;
+            }
+
+            // Collect form data
+            formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                motherMaidenName: document.getElementById('motherMaidenName').value,
+                dob: document.getElementById('dob').value,
+                sex: document.getElementById('sex').value,
+                otherBank: document.getElementById('otherBank').value,
+                country: document.getElementById('country').value,
+                state: document.getElementById('state').value,
+                address: document.getElementById('address').value,
+                accountType: document.querySelector('input[name="accountType"]:checked')?.value,
+                transactionType: document.querySelector('input[name="transactionType"]:checked')?.value,
+                employmentStatus: document.querySelector('input[name="employmentStatus"]:checked')?.value,
+                accountPurpose: document.querySelector('input[name="accountPurpose"]:checked')?.value,
+                initialDeposit: document.getElementById('initialDeposit').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Generate unique serial number
+            generateSerialNumber();
+            
+            // Create PDF
+            createPDF(formData);
+            
+            // Create folder and save data
+            saveToFolder(formData);
+            
+            // Show serial number
+            showSerialNumber();
+            
+            // Auto-fill message section
+            document.getElementById('messageEmail').value = formData.email;
+            document.getElementById('messageName').value = formData.fullName;
+            document.getElementById('messageSerial').value = currentSerialNumber;
+            
+            showStatus('Registration successful! Your serial number has been generated.', 'success');
+            
+            // Scroll to serial number
+            document.getElementById('serialNumberContainer').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function generateSerialNumber() {
+            // Generate unique serial number based on timestamp and random number
+            const timestamp = Date.now().toString(36).toUpperCase();
+            const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+            currentSerialNumber = `GPB-${timestamp}-${random}`;
+        }
+
+        function showSerialNumber() {
+            const container = document.getElementById('serialNumberContainer');
+            const serialElement = document.getElementById('serialNumber');
+            serialElement.textContent = currentSerialNumber;
+            container.classList.add('show');
+        }
+
+        function copySerialNumber() {
+            const serialText = document.getElementById('serialNumber').textContent;
+            navigator.clipboard.writeText(serialText).then(function() {
+                showStatus('Serial number copied to clipboard!', 'success');
+            }, function(err) {
+                showStatus('Failed to copy serial number. Please copy manually.', 'error');
+            });
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = 'status-message ' + type;
+            statusDiv.style.display = 'block';
+            
+            setTimeout(function() {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function createPDF(data) {
+            // Create PDF content
+            const pdfContent = `
+GLOBAL PILGRIM BANK - ACCOUNT OPENING APPLICATION
+===============================================
+
+Customer Information:
+-------------------
+Full Name: ${data.fullName}
+Email: ${data.email}
+Mother's Maiden Name: ${data.motherMaidenName}
+Date of Birth: ${data.dob}
+Sex: ${data.sex}
+
+Address Information:
+-------------------
+Country: ${data.country}
+State: ${data.state}
+Address: ${data.address}
+
+Account Details:
+----------------
+Account Type: ${data.accountType}
+Transaction Type: ${data.transactionType}
+Employment Status: ${data.employmentStatus}
+Account Purpose: ${data.accountPurpose}
+Initial Deposit: ${data.initialDeposit}
+Other Bank: ${data.otherBank}
+
+Registration Details:
+--------------------
+Serial Number: ${currentSerialNumber}
+Registration Date: ${new Date().toLocaleString()}
+Signature: [Digital signature attached]
+
+Bank Owner: Olawale Abdul-Ganiyu Adeshina
+
+===============================================
+This document is computer-generated and valid.
+            `;
+
+            // Create and download PDF
+            const blob = new Blob([pdfContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `GlobalPilgrimBank_${data.fullName.replace(/\s+/g, '_')}_Application.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        function saveToFolder(data) {
+            // Create folder structure in localStorage
+            const folderName = data.fullName.replace(/\s+/g, '_');
+            const folderData = {
+                customerData: data,
+                serialNumber: currentSerialNumber,
+                signatureImage: canvas.toDataURL(),
+                createdAt: new Date().toISOString()
+            };
+            
+            // Store in localStorage (simulating folder creation)
+            localStorage.setItem(`GPB_${folderName}`, JSON.stringify(folderData));
+            
+            console.log(`Folder created: ${folderName}`);
+            console.log('Data saved:', folderData);
+        }
+
+        function sendMessage() {
+            const email = document.getElementById('messageEmail').value;
+            const name = document.getElementById('messageName').value;
+            const serial = document.getElementById('messageSerial').value;
+            const message = document.getElementById('messageContent').value;
+            
+            // Validation
+            if (!email || !name || !serial || !message) {
+                showStatus('Please fill in all required fields.', 'error');
+                return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showStatus('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Get admin emails
+            const adminEmail1 = document.getElementById('adminEmail1').value;
+            const adminEmail2 = document.getElementById('adminEmail2').value;
+            
+            // Create email content
+            const emailSubject = `Account Registration Inquiry - Serial: ${serial}`;
+            const emailBody = `
+Dear Administrator,
+
+I hope this message finds you well. I am writing regarding my account registration with Global Pilgrim Bank.
+
+CUSTOMER INFORMATION:
+---------------------
+Name: ${name}
+Email: ${email}
+Serial Number: ${serial}
+
+MESSAGE:
+--------
+${message}
+
+Please acknowledge my registration and provide further instructions.
+
+Thank you.
+Best regards,
+${name}
+
+---
+Global Pilgrim Bank
+Owned by: Olawale Abdul-Ganiyu Adeshina
+            `;
+
+            // Create mailto link with multiple recipients
+            const mailtoLink = `mailto:${adminEmail1},${adminEmail2}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.open(mailtoLink, '_blank');
+            
+            // Store message in localStorage
+            const messageData = {
+                to: [adminEmail1, adminEmail2],
+                from: email,
+                name: name,
+                serial: serial,
+                message: message,
+                sentAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem(`GPB_Message_${Date.now()}`, JSON.stringify(messageData));
+            
+            showStatus('Email client opened! Please send your message to complete the process.', 'success');
+            
+            // Clear message fields
+            document.getElementById('messageContent').value = '';
+        }
+
+        // Initialize - resize canvas on load
+        window.onload = function() {
+            resizeCanvas();
+        };
+    </script>
+</body>
+</html>
